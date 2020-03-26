@@ -13,6 +13,19 @@ resource "aws_vpc" "Tona_VPC" {
   }
 }
 
+# ------------------------------------------------------------------------------
+# CREATE A NEW PRIVATE SUBNET
+# ------------------------------------------------------------------------------
+
+resource "aws_subnet" "Tona_Private_Subnet" {
+  vpc_id                  = "${aws_vpc.Tona_VPC.id}"
+  cidr_block              = "${var.Private_subnet_cidr}"
+  map_public_ip_on_launch = true
+  tags = {
+    Name        = "Tona Private Subnet"
+    Environment = "nonprod"
+  }
+}
 # INTERNET GATEWAY FOR Tona
 
 resource "aws_internet_gateway" "Tona_Gateway" {
